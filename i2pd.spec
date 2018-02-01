@@ -1,10 +1,9 @@
-%define build_timestamp %(date +"%Y%m%d")
-
 Name:           i2pd
 Version:        2.18.0
-Release:        %{build_timestamp}git%{?dist}
+Release:        1%{?dist}
 Summary:        I2P router written in C++
 Obsoletes:      %{name}-systemd
+Conflicts:      i2pd-git
 
 License:        BSD
 URL:            https://github.com/PurpleI2P/i2pd
@@ -59,12 +58,12 @@ chrpath -d i2pd
 install -D -m 755 i2pd %{buildroot}%{_sbindir}/i2pd
 install -D -m 755 %{_builddir}/%{name}-%{version}/contrib/i2pd.conf %{buildroot}%{_sysconfdir}/i2pd/i2pd.conf
 install -D -m 755 %{_builddir}/%{name}-%{version}/contrib/tunnels.conf %{buildroot}%{_sysconfdir}/i2pd/tunnels.conf
-install -d -m 755 %{buildroot}/%{_datadir}/i2pd
+install -d -m 755 %{buildroot}%{_datadir}/i2pd
 %{__cp} -r %{_builddir}/%{name}-%{version}/contrib/certificates/ %{buildroot}%{_datadir}/i2pd/certificates
-install -D -m 644 %{_builddir}/%{name}-%{version}/contrib/rpm/i2pd.service %{buildroot}/%{_unitdir}/i2pd.service
-install -d -m 700 %{buildroot}/%{_sharedstatedir}/i2pd
-install -d -m 700 %{buildroot}/%{_localstatedir}/log/i2pd
-ln -s %{_datadir}/%{name}/certificates %{buildroot}%{_sharedstatedir}/%{name}/certificates
+install -D -m 644 %{_builddir}/%{name}-%{version}/contrib/rpm/i2pd.service %{buildroot}%{_unitdir}/i2pd.service
+install -d -m 700 %{buildroot}%{_sharedstatedir}/i2pd
+install -d -m 700 %{buildroot}%{_localstatedir}/log/i2pd
+ln -s %{_datadir}/%{name}/certificates %{buildroot}%{_sharedstatedir}/i2pd/certificates
 
 
 %pre
@@ -98,7 +97,12 @@ getent passwd i2pd >/dev/null || \
 
 
 %changelog
-* Tue Jan 30 2018 orignal <i2porignal@yandex.ru>> - 2.18.0
+* Thu Feb 01 2018 r4sas <r4sas@i2pmail.org> - 2.18.0-1
+- Added to conflicts i2pd-git package
+- Fixed release versioning
+- Fixed paths with double slashes
+
+* Tue Jan 30 2018 orignal <i2porignal@yandex.ru> - 2.18.0
 - update to 2.18.0
 
 * Sat Jan 27 2018 l-n-s <supervillain@riseup.net> - 2.17.0-1
