@@ -1,5 +1,5 @@
 Name:           i2pd
-Version:        2.22.0
+Version:        2.23.0
 Release:        1%{?dist}
 Summary:        I2P router written in C++
 Conflicts:      i2pd-git
@@ -53,6 +53,9 @@ make %{?_smp_mflags}
 
 %install
 cd build
+%if 0%{?mageia}
+cd build
+%endif
 chrpath -d i2pd
 install -D -m 755 i2pd %{buildroot}%{_sbindir}/i2pd
 install -D -m 755 %{_builddir}/%{name}-%{version}/contrib/i2pd.conf %{buildroot}%{_sysconfdir}/i2pd/i2pd.conf
@@ -100,6 +103,9 @@ getent passwd i2pd >/dev/null || \
 
 
 %changelog
+* Mon Jan 21 2019 orignal <i2porignal@yandex.ru> - 2.23.0
+- update to 2.23.0
+
 * Fri Nov 09 2018 r4sas <r4sas@i2pmail.org> - 2.22.0
 - update to 2.22.0
 - add support of tunnelsdir option
