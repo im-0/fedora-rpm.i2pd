@@ -1,30 +1,30 @@
-Name:           i2pd
-Version:        2.32.0
-Release:        2%{?dist}
-Summary:        I2P router written in C++
-Conflicts:      i2pd-git
+Name:          i2pd
+Version:       2.32.0
+Release:       2%{?dist}
+Summary:       I2P router written in C++
+Conflicts:     i2pd-git
 
-License:        BSD
-URL:            https://github.com/PurpleI2P/i2pd
-Source0:        https://github.com/PurpleI2P/i2pd/archive/%{version}/%name-%version.tar.gz
+License:       BSD
+URL:           https://github.com/PurpleI2P/i2pd
+Source0:       https://github.com/PurpleI2P/i2pd/archive/%{version}/%name-%version.tar.gz
 
 %if 0%{?rhel} == 7
-BuildRequires:  cmake3
+BuildRequires: cmake3
 %else
-BuildRequires:  cmake
+BuildRequires: cmake
 %endif
 
-BuildRequires:  chrpath
-BuildRequires:  gcc-c++
-BuildRequires:  zlib-devel
-BuildRequires:  boost-devel
-BuildRequires:  openssl-devel
-BuildRequires:  miniupnpc-devel
-BuildRequires:  systemd-units
+BuildRequires: chrpath
+BuildRequires: gcc-c++
+BuildRequires: zlib-devel
+BuildRequires: boost-devel
+BuildRequires: openssl-devel
+BuildRequires: miniupnpc-devel
+BuildRequires: systemd-units
 
-Requires: logrotate
-Requires: systemd
-Requires(pre):  %{_sbindir}/useradd %{_sbindir}/groupadd
+Requires:      logrotate
+Requires:      systemd
+Requires(pre): %{_sbindir}/useradd %{_sbindir}/groupadd
 
 %description
 C++ implementation of I2P.
@@ -73,7 +73,6 @@ pushd build
 chrpath -d i2pd
 %{__install} -D -m 755 i2pd %{buildroot}%{_sbindir}/i2pd
 %{__install} -d -m 755 %{buildroot}%{_datadir}/i2pd
-%{__install} -d -m 755 %{buildroot}%{_datadir}/i2pd/tunnels.conf.d
 %{__install} -d -m 700 %{buildroot}%{_sharedstatedir}/i2pd
 %{__install} -d -m 700 %{buildroot}%{_localstatedir}/log/i2pd
 %{__install} -D -m 644 %{_builddir}/%{name}-%{version}/contrib/i2pd.conf %{buildroot}%{_sysconfdir}/i2pd/i2pd.conf
@@ -110,15 +109,16 @@ getent passwd i2pd >/dev/null || \
 %doc LICENSE README.md contrib/i2pd.conf contrib/subscriptions.txt contrib/tunnels.conf contrib/tunnels.d
 %{_sbindir}/i2pd
 %config(noreplace) %{_sysconfdir}/i2pd/*.conf
-%config(noreplace) %{_sysconfdir}/i2pd/tunnels.conf.d/*
-%{_sysconfdir}/i2pd/subscriptions.txt
+%config(noreplace) %{_sysconfdir}/i2pd/tunnels.conf.d/*.conf
+%config %{_sysconfdir}/i2pd/subscriptions.txt
+%doc %{_sysconfdir}/i2pd/tunnels.conf.d/README
+%{_sysconfdir}/logrotate.d/i2pd
 %{_unitdir}/i2pd.service
 %{_mandir}/man1/i2pd.1*
 %dir %attr(0700,i2pd,i2pd) %{_sharedstatedir}/i2pd
 %dir %attr(0700,i2pd,i2pd) %{_localstatedir}/log/i2pd
 %{_datadir}/i2pd/certificates
 %{_sharedstatedir}/i2pd/certificates
-%{_sysconfdir}/logrotate.d/i2pd
 
 
 %changelog
