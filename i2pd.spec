@@ -1,12 +1,14 @@
 Name:          i2pd
 Version:       2.41.0
-Release:       1%{?dist}
+Release:       1.im0%{?dist}
 Summary:       I2P router written in C++
 Conflicts:     i2pd-git
 
 License:       BSD
 URL:           https://github.com/PurpleI2P/i2pd
 Source0:       https://github.com/PurpleI2P/i2pd/archive/%{version}/%name-%version.tar.gz
+
+Patch0:        0001-Changes-for-running-under-systemd.patch
 
 %if 0%{?rhel} == 7
 BuildRequires: cmake3
@@ -31,6 +33,7 @@ C++ implementation of I2P.
 
 %prep
 %setup -q
+%patch0 -p1
 
 
 %build
@@ -101,6 +104,7 @@ chrpath -d i2pd
 %{__install} -D -m 644 %{_builddir}/%{name}-%{version}/contrib/tunnels.conf %{buildroot}%{_sysconfdir}/i2pd/tunnels.conf
 %{__install} -D -m 644 %{_builddir}/%{name}-%{version}/contrib/i2pd.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/i2pd
 %{__install} -D -m 644 %{_builddir}/%{name}-%{version}/contrib/i2pd.service %{buildroot}%{_unitdir}/i2pd.service
+%{__install} -D -m 644 %{_builddir}/%{name}-%{version}/contrib/i2pd.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/i2pd
 %{__install} -D -m 644 %{_builddir}/%{name}-%{version}/debian/i2pd.1 %{buildroot}%{_mandir}/man1/i2pd.1
 %{__cp} -r %{_builddir}/%{name}-%{version}/contrib/certificates/ %{buildroot}%{_datadir}/i2pd/certificates
 %{__cp} -r %{_builddir}/%{name}-%{version}/contrib/tunnels.d/ %{buildroot}%{_sysconfdir}/i2pd/tunnels.conf.d
@@ -129,6 +133,9 @@ getent passwd i2pd >/dev/null || \
 %files
 %doc LICENSE README.md contrib/i2pd.conf contrib/subscriptions.txt contrib/tunnels.conf contrib/tunnels.d
 %{_sbindir}/i2pd
+%dir %attr(0750,root,i2pd) %{_sysconfdir}/i2pd
+%dir %attr(0750,root,i2pd) %{_sysconfdir}/i2pd/tunnels.conf.d
+%config(noreplace) %{_sysconfdir}/sysconfig/i2pd
 %config(noreplace) %{_sysconfdir}/i2pd/*.conf
 %config(noreplace) %{_sysconfdir}/i2pd/tunnels.conf.d/*.conf
 %config %{_sysconfdir}/i2pd/subscriptions.txt
@@ -143,6 +150,9 @@ getent passwd i2pd >/dev/null || \
 
 
 %changelog
+* Mon May 16 2022 Ivan Mironov <mironov.ivan@gmail.com> - 2.41.0-1.im0
+- Add some systemd-related changes
+
 * Sun Feb 20 2022 r4sas <r4sas@i2pmail.org> - 2.41.0
 - update to 2.41.0
 
