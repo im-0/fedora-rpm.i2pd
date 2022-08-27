@@ -1,5 +1,5 @@
 Name:          i2pd
-Version:       2.42.1
+Version:       2.43.0
 Release:       1.im0%{?dist}
 Summary:       I2P router written in C++
 Conflicts:     i2pd-git
@@ -62,9 +62,7 @@ pushd redhat-linux-build
 %endif
 
 %if 0%{?fedora} >= 35
-%if 0%{?fedora} < 37
 pushd redhat-linux-build
-%endif
 %else
 %if 0%{?fedora} >= 33
 pushd %{_target_platform}
@@ -82,9 +80,7 @@ popd
 %endif
 
 %if 0%{?fedora} >= 33
-%if 0%{?fedora} < 37
 popd
-%endif
 %endif
 
 %if 0%{?mageia} > 7
@@ -99,9 +95,7 @@ pushd redhat-linux-build
 %endif
 
 %if 0%{?fedora} >= 35
-%if 0%{?fedora} < 37
 pushd redhat-linux-build
-%endif
 %else
 %if 0%{?fedora} >= 33
 pushd %{_target_platform}
@@ -168,13 +162,14 @@ getent passwd i2pd >/dev/null || \
 
 
 %changelog
-<<<<<<< HEAD
-* Mon May 16 2022 Ivan Mironov <mironov.ivan@gmail.com> - 2.42.0-1.im0
+* Mon May 16 2022 Ivan Mironov <mironov.ivan@gmail.com> - 2.43.0-1.im0
 - Add some systemd-related changes
-=======
+
+* Mon Aug 22 2022 orignal <orignal@i2pmail.org> - 2.43.0
+- update to 2.43.0
+
 * Tue May 24 2022 r4sas <r4sas@i2pmail.org> - 2.42.1
 - update to 2.42.1
->>>>>>> upstream/master
 
 * Sun May 22 2022 orignal <orignal@i2pmail.org> - 2.42.0
 - update to 2.42.0
