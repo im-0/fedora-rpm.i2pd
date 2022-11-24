@@ -1,5 +1,5 @@
 Name:          i2pd
-Version:       2.43.0
+Version:       2.44.0
 Release:       1.im0%{?dist}
 Summary:       I2P router written in C++
 Conflicts:     i2pd-git
@@ -162,8 +162,11 @@ getent passwd i2pd >/dev/null || \
 
 
 %changelog
-* Mon May 16 2022 Ivan Mironov <mironov.ivan@gmail.com> - 2.43.0-1.im0
+* Mon May 16 2022 Ivan Mironov <mironov.ivan@gmail.com> - 2.44.0-1.im0
 - Add some systemd-related changes
+
+* Sun Nov 20 2022 orignal <orignal@i2pmail.org> - 2.44.0
+- update to 2.44.0
 
 * Mon Aug 22 2022 orignal <orignal@i2pmail.org> - 2.43.0
 - update to 2.43.0
