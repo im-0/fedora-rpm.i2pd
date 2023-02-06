@@ -71,7 +71,7 @@ index 45fe4cc653c8..590f10449ff4 100644
  #TimeoutStopSec=10m
  
  # If you have problems with hanging i2pd, you can try increase this
--LimitNOFILE=4096
+-LimitNOFILE=8192
 +LimitNOFILE=10240
  # To enable write of coredump uncomment this
  #LimitCORE=infinity
