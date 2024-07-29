@@ -1,4 +1,4 @@
-From 702f9c9d713b9d2e299d81e623a4f82a92f6eea6 Mon Sep 17 00:00:00 2001
+From 5b888bdb749c36ebfd260878e06d876c11ab5cd0 Mon Sep 17 00:00:00 2001
 From: Ivan Mironov <mironov.ivan@gmail.com>
 Date: Mon, 16 May 2022 12:02:34 +0500
 Subject: [PATCH] Changes for running under systemd
@@ -28,7 +28,7 @@ index d0ca70ad2275..a450e057cacd 100644
 +    endscript
  }
 diff --git a/contrib/i2pd.service b/contrib/i2pd.service
-index 45fe4cc653c8..590f10449ff4 100644
+index 381ae483a936..e8864ed5fbc9 100644
 --- a/contrib/i2pd.service
 +++ b/contrib/i2pd.service
 @@ -3,19 +3,27 @@ Description=I2P Router written in C++
@@ -45,14 +45,14 @@ index 45fe4cc653c8..590f10449ff4 100644
  LogsDirectory=i2pd
  LogsDirectoryMode=0700
 -Type=forking
--ExecStart=/usr/sbin/i2pd --conf=/etc/i2pd/i2pd.conf --tunconf=/etc/i2pd/tunnels.conf --tunnelsdir=/etc/i2pd/tunnels.conf.d --pidfile=/run/i2pd/i2pd.pid --logfile=/var/log/i2pd/i2pd.log --daemon --service
+-ExecStart=/usr/bin/i2pd --conf=/etc/i2pd/i2pd.conf --tunconf=/etc/i2pd/tunnels.conf --tunnelsdir=/etc/i2pd/tunnels.conf.d --pidfile=/run/i2pd/i2pd.pid --logfile=/var/log/i2pd/i2pd.log --daemon --service
 -ExecReload=/bin/sh -c "kill -HUP $MAINPID"
 -PIDFile=/run/i2pd/i2pd.pid
 -### Uncomment, if auto restart needed
 -#Restart=on-failure
 +Type=simple
 +EnvironmentFile=/etc/sysconfig/i2pd
-+ExecStart=/usr/sbin/i2pd \
++ExecStart=/usr/bin/i2pd \
 +        --conf=/etc/i2pd/i2pd.conf \
 +        --datadir=/var/lib/i2pd \
 +        --tunconf=/etc/i2pd/tunnels.conf \
@@ -88,5 +88,5 @@ index 000000000000..85068915b2a7
 +# (\\\\d to mean \d), and escape newlines too.
 +ARGS=''
 -- 
-2.36.1
+2.45.2
 

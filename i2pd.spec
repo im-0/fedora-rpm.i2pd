@@ -138,7 +138,8 @@ getent passwd i2pd >/dev/null || \
 %{_bindir}/i2pd
 %config(noreplace) %{_sysconfdir}/i2pd/*.conf
 %config(noreplace) %{_sysconfdir}/i2pd/tunnels.conf.d/*.conf
-%config %{_sysconfdir}/i2pd/subscriptions.txt
+%config(noreplace) %{_sysconfdir}/i2pd/subscriptions.txt
+%config(noreplace) %{_sysconfdir}/sysconfig/i2pd
 %doc %{_sysconfdir}/i2pd/tunnels.conf.d/README
 %{_sysconfdir}/logrotate.d/i2pd
 %{_unitdir}/i2pd.service
