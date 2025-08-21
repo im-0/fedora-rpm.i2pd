@@ -1,4 +1,4 @@
-From 5b888bdb749c36ebfd260878e06d876c11ab5cd0 Mon Sep 17 00:00:00 2001
+From 09814358b3f0b035e54d5e7b1f5684eddc1027f1 Mon Sep 17 00:00:00 2001
 From: Ivan Mironov <mironov.ivan@gmail.com>
 Date: Mon, 16 May 2022 12:02:34 +0500
 Subject: [PATCH] Changes for running under systemd
@@ -28,12 +28,12 @@ index d0ca70ad2275..a450e057cacd 100644
 +    endscript
  }
 diff --git a/contrib/i2pd.service b/contrib/i2pd.service
-index 381ae483a936..e8864ed5fbc9 100644
+index 1ab46979de48..359ea75221ae 100644
 --- a/contrib/i2pd.service
 +++ b/contrib/i2pd.service
-@@ -3,19 +3,27 @@ Description=I2P Router written in C++
- Documentation=man:i2pd(1) https://i2pd.readthedocs.io/en/latest/
- After=network.target
+@@ -4,19 +4,27 @@ Documentation=man:i2pd(1) https://i2pd.readthedocs.io/en/latest/
+ Wants=network.target
+ After=network.target network-online.target
  
 +StartLimitIntervalSec=0
 +
@@ -67,7 +67,7 @@ index 381ae483a936..e8864ed5fbc9 100644
  
  # Use SIGTERM to stop i2pd immediately.
  # Some cleanup processes can delay stopping, so we set 30 seconds timeout and then SIGKILL i2pd.
-@@ -29,7 +37,7 @@ SendSIGKILL=yes
+@@ -30,7 +38,7 @@ SendSIGKILL=yes
  #TimeoutStopSec=10m
  
  # If you have problems with hanging i2pd, you can try increase this
@@ -88,5 +88,5 @@ index 000000000000..85068915b2a7
 +# (\\\\d to mean \d), and escape newlines too.
 +ARGS=''
 -- 
-2.45.2
+2.50.1
 
