@@ -1,5 +1,5 @@
 Name:          i2pd
-Version:       2.57.0
+Version:       2.58.0
 Release:       1%{?dist}
 Summary:       I2P router written in C++
 Conflicts:     i2pd-git
@@ -8,11 +8,7 @@ License:       BSD
 URL:           https://github.com/PurpleI2P/i2pd
 Source0:       https://github.com/PurpleI2P/i2pd/archive/%{version}/%name-%version.tar.gz
 
-%if 0%{?rhel} == 7
-BuildRequires: cmake3
-%else
 BuildRequires: cmake
-%endif
 
 BuildRequires: chrpath
 BuildRequires: gcc-c++
@@ -41,26 +37,18 @@ C++ implementation of I2P.
 
 %build
 cd build
-%if 0%{?rhel} == 7
-  %cmake3 \
-    -DWITH_LIBRARY=OFF \
-    -DWITH_UPNP=ON \
-    -DWITH_HARDENING=ON \
-    -DBUILD_SHARED_LIBS:BOOL=OFF
+%cmake \
+  -DWITH_LIBRARY=OFF \
+  -DWITH_UPNP=ON \
+  -DWITH_HARDENING=ON \
+%if 0%{?fedora} > 29
+  -DBUILD_SHARED_LIBS:BOOL=OFF \
+  .
 %else
-  %cmake \
-    -DWITH_LIBRARY=OFF \
-    -DWITH_UPNP=ON \
-    -DWITH_HARDENING=ON \
-  %if 0%{?fedora} > 29
-    -DBUILD_SHARED_LIBS:BOOL=OFF \
-    .
-  %else
-    -DBUILD_SHARED_LIBS:BOOL=OFF
-  %endif
+  -DBUILD_SHARED_LIBS:BOOL=OFF
 %endif
 
-%if 0%{?rhel} == 9 || 0%{?fedora} >= 35 || 0%{?eln}
+%if 0%{?rhel} >= 9 || 0%{?fedora} >= 35 || 0%{?eln}
   pushd redhat-linux-build
 %else
   %if 0%{?fedora} >= 33
@@ -74,7 +62,7 @@ cd build
 
 make %{?_smp_mflags}
 
-%if 0%{?rhel} == 9 || 0%{?fedora} >= 33 || 0%{?mageia} > 7
+%if 0%{?rhel} >= 9 || 0%{?fedora} >= 33 || 0%{?mageia} > 7
   popd
 %endif
 
@@ -82,7 +70,7 @@ make %{?_smp_mflags}
 %install
 pushd build
 
-%if 0%{?rhel} == 9 || 0%{?fedora} >= 35 || 0%{?eln}
+%if 0%{?rhel} >= 9 || 0%{?fedora} >= 35 || 0%{?eln}
   pushd redhat-linux-build
 %else
   %if 0%{?fedora} >= 33
@@ -146,6 +134,9 @@ getent passwd i2pd >/dev/null || \
 
 
 %changelog
+* Mon Sep 08 2025 orignal <orignal@i2pmail.org> - 2.58.0
+- update to 2.58.0
+
 * Mon Jun 02 2025 orignal <orignal@i2pmail.org> - 2.57.0
 - update to 2.57.0
 
