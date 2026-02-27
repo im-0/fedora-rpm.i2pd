@@ -1,7 +1,7 @@
 Name:          i2pd
-Version:       2.58.0
+Version:       2.59.0
 Release:       1.im0%{?dist}
-Summary:       I2P router written in C++
+Summary:       C++ daemon for accessing the I2P network
 Conflicts:     i2pd-git
 
 License:       BSD
@@ -9,6 +9,9 @@ URL:           https://github.com/PurpleI2P/i2pd
 Source0:       https://github.com/PurpleI2P/i2pd/archive/%{version}/%name-%version.tar.gz
 
 Patch0:        0001-Changes-for-running-under-systemd.patch
+
+Provides: group(i2pd) = %{version}-%{release}
+Provides:  user(i2pd) = %{version}-%{release}
 
 BuildRequires: cmake
 
@@ -139,8 +142,11 @@ getent passwd i2pd >/dev/null || \
 
 
 %changelog
-* Mon May 16 2022 Ivan Mironov <mironov.ivan@gmail.com> - 2.58.0-1.im0
+* Mon May 16 2022 Ivan Mironov <mironov.ivan@gmail.com> - 2.59.0-1.im0
 - Add some systemd-related changes
+
+* Mon Feb 09 2026 orignal <orignal@i2pmail.org> - 2.59.0
+- update to 2.59.0
 
 * Mon Sep 08 2025 orignal <orignal@i2pmail.org> - 2.58.0
 - update to 2.58.0

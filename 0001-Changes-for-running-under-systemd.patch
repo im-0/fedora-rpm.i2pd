@@ -1,4 +1,4 @@
-From 09814358b3f0b035e54d5e7b1f5684eddc1027f1 Mon Sep 17 00:00:00 2001
+From f11343307370e15197e27d74cd6ddb3dd00d464d Mon Sep 17 00:00:00 2001
 From: Ivan Mironov <mironov.ivan@gmail.com>
 Date: Mon, 16 May 2022 12:02:34 +0500
 Subject: [PATCH] Changes for running under systemd
@@ -28,7 +28,7 @@ index d0ca70ad2275..a450e057cacd 100644
 +    endscript
  }
 diff --git a/contrib/i2pd.service b/contrib/i2pd.service
-index 1ab46979de48..359ea75221ae 100644
+index 9aa140c2ed19..98671fd7e3ed 100644
 --- a/contrib/i2pd.service
 +++ b/contrib/i2pd.service
 @@ -4,19 +4,27 @@ Documentation=man:i2pd(1) https://i2pd.readthedocs.io/en/latest/
@@ -75,7 +75,7 @@ index 1ab46979de48..359ea75221ae 100644
 +LimitNOFILE=10240
  # To enable write of coredump uncomment this
  #LimitCORE=infinity
- 
+ #hardening
 diff --git a/contrib/i2pd.sysconfig b/contrib/i2pd.sysconfig
 new file mode 100644
 index 000000000000..85068915b2a7
@@ -88,5 +88,5 @@ index 000000000000..85068915b2a7
 +# (\\\\d to mean \d), and escape newlines too.
 +ARGS=''
 -- 
-2.50.1
+2.53.0
 
