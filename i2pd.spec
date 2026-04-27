@@ -1,5 +1,5 @@
 Name:          i2pd
-Version:       2.59.0
+Version:       2.60.0
 Release:       1.im0%{?dist}
 Summary:       C++ daemon for accessing the I2P network
 Conflicts:     i2pd-git
@@ -142,6 +142,9 @@ getent passwd i2pd >/dev/null || \
 
 
 %changelog
+* Mon Apr 27 2026 Ivan Mironov <mironov.ivan@gmail.com> - 2.60.0-1.im0
+- Update to 2.60.0
+
 * Mon May 16 2022 Ivan Mironov <mironov.ivan@gmail.com> - 2.59.0-1.im0
 - Add some systemd-related changes
 
