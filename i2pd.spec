@@ -1,3 +1,5 @@
+%global _cmake_generator "Unix Makefiles"
+
 Name:          i2pd
 Version:       2.60.0
 Release:       1.im0%{?dist}
@@ -38,7 +40,7 @@ C++ implementation of I2P.
 
 %prep
 %setup -q
-%patch -P 0 -p1
+%patch -P0 -p1
 
 
 %build
