@@ -1,5 +1,5 @@
 Name:          i2pd
-Version:       2.59.0
+Version:       2.60.0
 Release:       1%{?dist}
 Summary:       C++ daemon for accessing the I2P network
 Conflicts:     i2pd-git
@@ -63,7 +63,11 @@ cd build
   %endif
 %endif
 
-make %{?_smp_mflags}
+%if 0%{?fedora} >= 44 || 0%{?eln}
+  ninja %{?_smp_mflags}
+%else
+  make %{?_smp_mflags}
+%endif
 
 %if 0%{?rhel} >= 9 || 0%{?fedora} >= 33 || 0%{?mageia} > 7
   popd
@@ -137,6 +141,9 @@ getent passwd i2pd >/dev/null || \
 
 
 %changelog
+* Mon Apr 20 2026 orignal <orignal@i2pmail.org> - 2.60.0
+- update to 2.60.0
+
 * Mon Feb 09 2026 orignal <orignal@i2pmail.org> - 2.59.0
 - update to 2.59.0
 
