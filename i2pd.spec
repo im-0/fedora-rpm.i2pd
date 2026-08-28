@@ -1,4 +1,6 @@
+%if 0%{?fedora} < 44
 %global _cmake_generator "Unix Makefiles"
+%endif
 
 Name:          i2pd
 Version:       2.61.0
