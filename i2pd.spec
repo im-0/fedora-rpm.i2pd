@@ -1,7 +1,7 @@
 %global _cmake_generator "Unix Makefiles"
 
 Name:          i2pd
-Version:       2.60.0
+Version:       2.61.0
 Release:       1.im0%{?dist}
 Summary:       C++ daemon for accessing the I2P network
 Conflicts:     i2pd-git
@@ -68,7 +68,11 @@ cd build
   %endif
 %endif
 
-make %{?_smp_mflags}
+%if 0%{?fedora} >= 44 || 0%{?eln}
+  ninja %{?_smp_mflags}
+%else
+  make %{?_smp_mflags}
+%endif
 
 %if 0%{?rhel} >= 9 || 0%{?fedora} >= 33 || 0%{?mageia} > 7
   popd
@@ -144,11 +148,14 @@ getent passwd i2pd >/dev/null || \
 
 
 %changelog
-* Mon Apr 27 2026 Ivan Mironov <mironov.ivan@gmail.com> - 2.60.0-1.im0
-- Update to 2.60.0
-
-* Mon May 16 2022 Ivan Mironov <mironov.ivan@gmail.com> - 2.59.0-1.im0
+* Mon May 16 2022 Ivan Mironov <mironov.ivan@gmail.com> - 2.61.0-1.im0
 - Add some systemd-related changes
+
+* Mon Jul 20 2026 orignal <orignal@i2pmail.org> - 2.61.0
+- update to 2.61.0
+
+* Mon Apr 20 2026 orignal <orignal@i2pmail.org> - 2.60.0
+- update to 2.60.0
 
 * Mon Feb 09 2026 orignal <orignal@i2pmail.org> - 2.59.0
 - update to 2.59.0
