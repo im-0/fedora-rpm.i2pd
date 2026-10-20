@@ -1,5 +1,5 @@
 Name:          i2pd
-Version:       2.61.0
+Version:       3.0.0
 Release:       1%{?dist}
 Summary:       C++ daemon for accessing the I2P network
 Conflicts:     i2pd-git
@@ -25,6 +25,14 @@ BuildRequires: systemd-units
 BuildRequires: openssl-devel-engine
 %endif
 
+%if !0%{?mageia} && (0%{?rhel} && 0%{?rhel} <= 9 || 0%{?fedora} && 0%{?fedora} <= 43)
+BuildRequires: boost-json
+%endif
+
+%if !0%{?mageia} && 0%{?fedora} && 0%{?fedora} <= 43
+BuildRequires: boost-url
+%endif
+
 Requires:      logrotate
 Requires:      systemd
 Requires(pre): %{_sbindir}/useradd %{_sbindir}/groupadd
@@ -44,6 +52,9 @@ cd build
   -DWITH_LIBRARY=OFF \
   -DWITH_UPNP=ON \
   -DWITH_HARDENING=ON \
+%if 0%{?rhel} <= 9
+  -DWITH_TORRENTS=OFF \
+%endif
 %if 0%{?fedora} > 29
   -DBUILD_SHARED_LIBS:BOOL=OFF \
   .
@@ -63,7 +74,7 @@ cd build
   %endif
 %endif
 
-%if 0%{?fedora} >= 44 || 0%{?eln}
+%if 0%{?fedora} >= 44 || 0%{?mageia} == 9 || 0%{?mageia} > 10 || 0%{?eln}
   ninja %{?_smp_mflags}
 %else
   make %{?_smp_mflags}
@@ -141,6 +152,9 @@ getent passwd i2pd >/dev/null || \
 
 
 %changelog
+* Mon Oct 19 2026 orignal <orignal@i2pmail.org> - 3.0.0
+- update to 3.0.0
+
 * Mon Jul 20 2026 orignal <orignal@i2pmail.org> - 2.61.0
 - update to 2.61.0
 
